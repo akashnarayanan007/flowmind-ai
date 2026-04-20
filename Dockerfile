@@ -3,11 +3,11 @@ FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# Copy dependency manifests and install
+# Install ALL deps (devDependencies needed for vite build)
 COPY package*.json ./
-RUN npm ci --omit=dev=false
+RUN npm ci
 
-# Copy all source files and build the production bundle
+# Copy source and build production bundle
 COPY . .
 RUN npm run build
 
@@ -16,15 +16,14 @@ FROM node:20-alpine AS runner
 
 WORKDIR /app
 
-# Install only the static file server
+# Install static file server
 RUN npm install -g serve
 
-# Copy the production build output from Stage 1
+# Copy built output from Stage 1
 COPY --from=builder /app/dist ./dist
 
-# Cloud Run injects PORT env var; default to 8080
+# Cloud Run sets PORT automatically; default to 8080
 ENV PORT=8080
 EXPOSE 8080
 
-# Serve the static build on the correct port
 CMD ["sh", "-c", "serve -s dist -l ${PORT}"]
