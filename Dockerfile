@@ -1,29 +1,36 @@
-# ─── Stage 1: Build ───────────────────────────────────────────────
+# ─── Stage 1: Build the Vite app ─────────────────────────────────
 FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# Install ALL deps (devDependencies needed for vite build)
-COPY package*.json ./
-RUN npm ci
+# Install dependencies (devDeps needed for vite build)
+COPY package.json package-lock.json ./
+RUN npm install
 
-# Copy source and build production bundle
+# Copy source and build
 COPY . .
 RUN npm run build
 
-# ─── Stage 2: Serve ───────────────────────────────────────────────
-FROM node:20-alpine AS runner
+# ─── Stage 2: Serve with nginx ────────────────────────────────────
+FROM nginx:stable-alpine AS runner
 
-WORKDIR /app
+# Remove default nginx page
+RUN rm -rf /usr/share/nginx/html/*
 
-# Install static file server
-RUN npm install -g serve
+# Copy Vite build output
+COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Copy built output from Stage 1
-COPY --from=builder /app/dist ./dist
+# Custom nginx config to handle SPA routing and Cloud Run port
+RUN printf 'server {\n\
+    listen 8080;\n\
+    root /usr/share/nginx/html;\n\
+    index index.html;\n\
+    location / {\n\
+        try_files $uri $uri/ /index.html;\n\
+    }\n\
+}\n' > /etc/nginx/conf.d/default.conf
 
-# Cloud Run sets PORT automatically; default to 8080
-ENV PORT=8080
 EXPOSE 8080
 
-CMD ["sh", "-c", "serve -s dist -l ${PORT}"]
+CMD ["nginx", "-g", "daemon off;"]
+
