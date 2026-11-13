@@ -1,5 +1,5 @@
 import React from 'react';
-import { useVenueContext } from '../../context/VenueContext';
+import { useVenueContext } from '../../context/useVenueContext';
 import { STADIUMS } from '../../services/stadiumData';
 import './StadiumSelector.css';
 

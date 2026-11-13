@@ -1,6 +1,5 @@
-import React, { createContext, useContext, useState } from 'react';
-
-const VenueContext = createContext(null);
+import React, { useState } from 'react';
+import { VenueContext } from './VenueContextInstance';
 
 export const VenueProvider = ({ children }) => {
   const [selectedStadium, setSelectedStadium] = useState('A');
@@ -23,10 +22,4 @@ export const VenueProvider = ({ children }) => {
   );
 };
 
-export const useVenueContext = () => {
-  const ctx = useContext(VenueContext);
-  if (!ctx) throw new Error('useVenueContext must be used within VenueProvider');
-  return ctx;
-};
-
-export default VenueContext;
+export default VenueProvider;

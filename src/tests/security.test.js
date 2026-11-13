@@ -1,5 +1,5 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { sanitizeInput, checkRateLimit, isValidApiKey, truncateResponse } from '../utils/security';
+import { describe, it, expect } from 'vitest';
+import { sanitizeInput, isValidApiKey, truncateResponse } from '../utils/security';
 
 describe('sanitizeInput', () => {
   it('removes HTML tags from input', () => {

@@ -51,7 +51,7 @@ export const sanitizeInput = (input) => {
  */
 export const isValidApiKey = (key) => {
   if (!key || typeof key !== 'string') return false;
-  return key.length > 20 && /^[A-Za-z0-9_\-]+$/.test(key);
+  return key.length > 20 && /^[A-Za-z0-9_-]+$/.test(key);
 };
 
 /**

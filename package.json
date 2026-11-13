@@ -1,8 +1,28 @@
 {
-  "name": "spiderman",
+  "name": "flowmind-ai",
   "private": true,
-  "version": "0.0.0",
+  "version": "1.0.0",
+  "description": "Real-Time Venue Decision Intelligence Assistant powered by Google Gemini 2.0 Flash and dynamic vector wayfinding.",
   "type": "module",
+  "author": "FlowMind AI Contributors",
+  "license": "MIT",
+  "homepage": "https://akashnarayanan007.github.io/flowmind-ai/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/akashnarayanan007/flowmind-ai.git"
+  },
+  "keywords": [
+    "gemini-2-flash",
+    "google-ai",
+    "stadium-navigation",
+    "crowd-management",
+    "real-time",
+    "react-19",
+    "vite",
+    "decision-intelligence",
+    "vector-map",
+    "accessibility"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vite build",
@@ -10,7 +30,8 @@
     "preview": "vite preview",
     "start": "serve -s dist",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "screenshots": "node scripts/capture-screenshots.js"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",

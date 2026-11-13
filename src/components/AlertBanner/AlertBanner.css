@@ -13,17 +13,17 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  background: rgba(15, 17, 26, 0.92);
-  border: 1px solid rgba(245, 158, 11, 0.4);
+  background: rgba(16, 22, 36, 0.95);
+  border: 1px solid rgba(245, 158, 11, 0.35);
   border-left: 3px solid #f59e0b;
   border-radius: 10px;
   padding: 10px 14px;
-  min-width: 260px;
-  max-width: 340px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(12px);
+  min-width: 270px;
+  max-width: 360px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(14px);
   pointer-events: all;
-  animation: slide-in-right 0.35s ease-out forwards;
+  animation: slide-in-right 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   color: var(--text-primary);
 }
 
@@ -48,6 +48,7 @@
   font-size: 0.82rem;
   line-height: 1.4;
   color: var(--text-primary);
+  font-weight: 500;
 }
 
 .alert-dismiss {
@@ -55,18 +56,18 @@
   border: none;
   color: var(--text-muted);
   cursor: pointer;
-  padding: 2px;
+  padding: 3px;
   border-radius: 4px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: all 0.2s ease;
+  transition: all 0.15s ease;
   flex-shrink: 0;
 }
 
 .alert-dismiss:hover {
-  color: var(--accent-danger);
-  background: rgba(239, 68, 68, 0.1);
+  color: var(--accent-rose);
+  background: rgba(244, 63, 94, 0.1);
 }
 
 .alert-dismiss:focus-visible {

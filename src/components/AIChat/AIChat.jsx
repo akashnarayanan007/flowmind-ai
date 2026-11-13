@@ -15,7 +15,7 @@ import React, { useState, useEffect, useRef, useCallback, memo } from 'react';
 import { Mic, MicOff, Send, Cpu, User, Volume2, VolumeX, Copy, Check } from 'lucide-react';
 import { getContextAwareGuidance } from '../../services/aiService';
 import { getCurrentStadiumContext } from '../../services/dataService';
-import { useVenueContext } from '../../context/VenueContext';
+import { useVenueContext } from '../../context/useVenueContext';
 import { parseMarkdown } from '../../utils/formatters';
 import './AIChat.css';
 
@@ -131,9 +131,9 @@ MessageBubble.displayName = 'MessageBubble';
 const AIChat = () => {
   const { selectedStadium, activeCategory, setActiveCategory } = useVenueContext();
 
-  const [messages, setMessages] = useState([
+  const [messages, setMessages] = useState(() => [
     {
-      id: 'init-1',
+      id: `init-${selectedStadium}`,
       sender: 'ai',
       text: `Hi! I'm **FlowMind**, your venue assistant at **Stadium ${selectedStadium}**. Ask me where to eat, which washroom to use, or the best exit right now!`,
       timestamp: Date.now(),
@@ -153,19 +153,6 @@ const AIChat = () => {
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [messages, isLoading]);
-
-  // Reset chat history when stadium changes
-  useEffect(() => {
-    setChatHistory([]);
-    setMessages([
-      {
-        id: `init-${selectedStadium}`,
-        sender: 'ai',
-        text: `Switched to **Stadium ${selectedStadium}**! Ask me about food, washrooms, or exits here.`,
-        timestamp: Date.now(),
-      },
-    ]);
-  }, [selectedStadium]);
 
   /**
    * Speaks text aloud using the Web Speech API when TTS is enabled.

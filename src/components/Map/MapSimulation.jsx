@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Map, Navigation } from 'lucide-react';
-import { useVenueContext } from '../../context/VenueContext';
+import { useVenueContext } from '../../context/useVenueContext';
 import { subscribeToStadiumData } from '../../services/dataService';
 import { getBestOption } from '../../services/stadiumData';
 import './MapSimulation.css';
@@ -41,10 +41,8 @@ const MapSimulation = () => {
 
   // Find the best node in the active category
   let bestNode = null;
-  let bestNodes = [];
   if (activeCategory) {
     const catNodes = allNodes.filter(n => n.cat === activeCategory);
-    bestNodes = catNodes;
     const type = activeCategory === 'food' ? 'food' : activeCategory === 'washrooms' ? 'restroom' : 'exit';
     bestNode = getBestOption(catNodes, type);
   }
@@ -116,7 +114,6 @@ const MapSimulation = () => {
         {/* ALL location nodes */}
         {allNodes.map(node => {
           const cat = CATEGORIES.find(c => c.key === node.cat);
-          const isActiveCategory = !activeCategory || node.cat === activeCategory;
           const isBest = bestNode && node.id === bestNode.id;
           const isDimmed = activeCategory && node.cat !== activeCategory;
 

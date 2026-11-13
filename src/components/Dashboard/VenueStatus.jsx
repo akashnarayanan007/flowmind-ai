@@ -16,7 +16,7 @@
 import React, { useEffect, useState, useCallback, memo } from 'react';
 import { subscribeToStadiumData } from '../../services/dataService';
 import { getBestOption } from '../../services/stadiumData';
-import { useVenueContext } from '../../context/VenueContext';
+import { useVenueContext } from '../../context/useVenueContext';
 import { getTrend } from '../../utils/formatters';
 import './VenueStatus.css';
 import { Utensils, Droplets, LogOut, Clock, Users, Star, TrendingUp, TrendingDown, Minus, Accessibility } from 'lucide-react';
